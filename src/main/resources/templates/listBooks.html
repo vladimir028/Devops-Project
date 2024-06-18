@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Books Homepage - Welcome to My Book Store</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+
+        .btn{
+            border: 1px solid black;
+            background: aqua;
+        }
+    </style>
+</head>
+<body>
+<body>
+<header>
+    <h1>Welcome to My Book Store</h1>
+</header>
+<main>
+    <h2>Choose book:</h2>
+
+    <form th:method="post" th:action="@{/author}">
+    <ul th:each="book : ${books}">
+        <li>
+            <input type="radio" th:id="${book.getIsbn()}" name="bookIsbn" th:value="${book.getIsbn()}"  th:text="${book.getTitle()} +
+             ' ' + ${book.getGenre()} +
+             ' ' + ${book.getYear()}  + ' ' + ${book.getBookStore().getName()}">
+
+            <a class="btn btn-sm btn-info" th:href="@{'/review/{id}' (id=${book.getId()})}">View Review</a>
+            <a class="btn btn-sm btn-info" th:href="@{'/books/edit-form/{id}' (id=${book.getId()})}">Edit</a>
+            <a class="btn btn-sm btn-info" th:href="@{'/books/delete/{id}' (id=${book.getId()})}">Delete</a>
+
+        </li>
+<!--        <li th:text="${book.getTitle()} + ' ' + ${book.getGenre()} + ' ' + ${book.getYear()} "></li>-->
+
+    </ul>
+    <input type="submit" value="Submit">
+<!--        <input th:href="@{/books/add-form}" type="submit" value="Add New Book">-->
+        <a class="btn btn-sm btn-info" th:href="@{/books/add-form}">Add New Book</a>
+
+    </form>
+
+    <div th:if="${hasError}">
+        <th:block th:text="${error}"></th:block>
+    </div>
+
+    <div class="container">
+       <th:block th:text="${'Book with id ' + maxAvgScoreBook + ' has a max average rating of ' + score}"></th:block>
+    </div>
+
+    <th:block th:text="${book.getTitle()}"></th:block>
+
+</main>
+</body>
+</body>
+</html>
