@@ -1,0 +1,26 @@
+kubectl config set-context --current --namespace=devops-project
+
+minikube addons enable ingress
+minikube addons enable ingress-dns
+kubectl get pods -n ingress-nginx
+minikube tunnel
+
+
+kubectl delete pods --all
+kubectl delete deployments --all
+kubectl delete services --all
+
+
+minikube service app-svc --url -n devops-project
+
+-- argoCD
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl get pod -n argocd
+kubectl get svc -n argocd
+
+kubectl port-forward -n argocd svc/argocd-server 8080:443
+kubectl get secret argocd-initial-admin-secret -n argocd -o yaml
+
+kubectl apply -f argo.yml

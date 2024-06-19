@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: app-ingress
+  namespace: devops-project
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    -  host: "211028.com"
+       http:
+         paths:
+           - pathType: Prefix
+             path: "/"
+             backend:
+               service:
+                 name: app-svc
+                 port:
+                   number: 8080
