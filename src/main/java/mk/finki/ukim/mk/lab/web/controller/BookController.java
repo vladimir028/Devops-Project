@@ -36,17 +36,24 @@ public class BookController {
             model.addAttribute("error", error);
         }
         List<Book> books = bookService.listBooks();
-        Map<Long, Double> mapByBookIdAndAvgScore = reviewService.groupedByBookId();
-        Map.Entry<Long, Double> maxAvg = mapByBookIdAndAvgScore.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .orElse(null);
-        Long bookId = maxAvg.getKey();
-        Book maxAvgScoreBook = bookService.findBookById(bookId).get();
-        String title = maxAvgScoreBook.getTitle();
+//        Map<Long, Double> mapByBookIdAndAvgScore = reviewService.groupedByBookId();
+//        Map.Entry<Long, Double> maxAvg = null;
+//        if(mapByBookIdAndAvgScore != null) {
+//            maxAvg = mapByBookIdAndAvgScore.entrySet().stream()
+//                    .max(Map.Entry.comparingByValue())
+//                    .orElse(null);
+//        }
+//        else {
+//            maxAvg.setValue(0.0);
+//        }
+
+//        Long bookId = maxAvg.getKey();
+//        Book maxAvgScoreBook = bookService.findBookById(bookId).get();
+//        String title = maxAvgScoreBook.getTitle();
 //        model.addAttribute("reviews", reviews);
-        model.addAttribute("book", maxAvgScoreBook);
-        model.addAttribute("score", maxAvg.getValue());
-        model.addAttribute("maxAvgScoreBook", bookId);
+//        model.addAttribute("book", maxAvgScoreBook);
+//        model.addAttribute("score", maxAvg.getValue());
+//        model.addAttribute("maxAvgScoreBook", bookId);
         model.addAttribute("books", books);
         return "listBooks";
     }

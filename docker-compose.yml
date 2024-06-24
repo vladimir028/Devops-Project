@@ -1,25 +1,37 @@
-version: "3"
+version: '3.8'
 services:
+#  db container
   db:
-    image: "postgres"
+    image: vladimir028/db-devops-project
     restart: always
-    container_name: "db"
+    container_name: db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=book-store
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: book-store
     ports:
       - "5432:5432"
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
+#    same network as the app
+    networks:
+      - spring-network
+# app container
   app:
-    depends_on:
-      - db
-    image: vladimir028/devops-project:latest
-    container_name: "app"
+    image: vladimir028/app-devops-project
+    container_name: app
     ports:
       - "8080:8080"
+    depends_on:
+      - db
     environment:
-      - "SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/book-store"
-volumes:
-  postgres-data:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/book-store
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+#    same network as the db
+    networks:
+      - spring-network
+
+#  define network
+networks:
+  spring-network:
+#    smth like virtual network
+    driver: bridge
