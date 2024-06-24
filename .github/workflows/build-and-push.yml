@@ -25,7 +25,7 @@ jobs:
       - name: Build and push Devops Dockerfile
         uses: docker/build-push-action@v5
         with:
-          context: ./kubernets
+          context: .
           push: true
           tags: |
             vladimir028/spring_app:latest
