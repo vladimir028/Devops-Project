@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <div>
+    <ul th:each="store : ${stores}">
+      <li>
+        <th:block  th:name="id" th:value="${store.getId()}" th:text="${store.getName() + ' ' + store.getAddress()+ ' ' + store.getCity()}">
+            </th:block>
+          <a class="btn btn-sm btn-info" th:href="@{'/bookStore/details/{id}' (id=${store.getId()})}">View Details</a>
+          <input type="hidden" th:name="id" th:value="${store.getId()}">
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

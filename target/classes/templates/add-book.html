@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Add/Edit Product</title>
+</head>
+<body>
+<form th:method="post" th:action="@{/books/add}">
+<!--  <input type="hidden" name="id" th:value="${book?.getId()}">-->
+<div class="container">
+  <div class="form-group">
+    <label>Book ISBN</label>
+    <input type="text" class="form-control" th:id="isbn" name="isbn" th:value="${book} != null ? ${book.getIsbn()} : ''" required placeholder="Enter ISBN">
+<!--    <input type="text" class="form-control" th:id="isbn" name="isbn" th:value="${book?.getIsbn()}" required placeholder="Enter ISBN">-->
+
+  </div>
+  <div class="form-group">
+    <label>Book Title</label>
+    <input type="text" class="form-control" th:id="title" name="title" th:value="${book} != null ? ${book.getTitle()} : ''" required placeholder="Enter Title">
+
+  </div>
+
+  <div class="form-group">
+    <label>Genre</label>
+    <input type="text" class="form-control" th:id="genre" name="genre" th:value="${book} != null ? ${book.getGenre()} : ''" required placeholder="Enter Genre">
+  </div>
+
+  <div class="form-group">
+    <label>Year of publish</label>
+    <input type="text" class="form-control" th:id="year" name="year" th:value="${book} != null ? ${book.getYear()} : ''" required placeholder="Enter Year">
+  </div>
+
+  <div class="form-group">
+    <label>Book Store</label>
+    <select name="store" class="form-control">
+      <option th:if="${book} != null"
+              th:each="store : ${stores}"
+              th:text="${store.getName()}"
+              th:selected="${book.getBookStore() != null && book.getBookStore().getId() == store.getId()}"
+              th:value="${store.getId()}">
+      </option>
+      <option th:if="${book} == null"
+              th:each="store : ${stores}"
+              th:text="${store.getName()}"
+              th:value="${store.getId()}">
+      </option>
+    </select>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  <br>
+
+</div>
+</form>
+<!--<h5> <th:block th:text="${book.getIsbn()}"></th:block></h5>-->
+</body>
+</html>
