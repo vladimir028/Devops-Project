@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:latest
+          image: vladimir028/db-devops-project
           envFrom:
             - configMapRef:
                 name: postgres-config
